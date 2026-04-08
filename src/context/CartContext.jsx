@@ -93,7 +93,7 @@ export function CartProvider({ children }) {
         }
 
         try {
-          const response = await axios.post('http://localhost:5000/api/payment/create-intent', {
+          const response = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/payment/create-intent`, {
             amount: subtotal,
           })
           return response.data
@@ -116,7 +116,7 @@ export function CartProvider({ children }) {
             quantity: item.quantity,
           }))
 
-          const response = await axios.post('http://localhost:5000/api/payment/confirm', {
+          const response = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/payment/confirm`, {
             paymentIntentId,
             items: orderItems,
             totalPrice: subtotal,

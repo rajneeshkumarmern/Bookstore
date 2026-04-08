@@ -34,7 +34,7 @@ export default function Orders() {
     const fetchOrders = async () => {
       try {
         setLoading(true)
-        const response = await axios.get(`http://localhost:5000/api/orders/user/${user._id}`)
+        const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/orders/user/${user._id}`)
         setOrders(response.data)
       } catch (err) {
         setError('Failed to fetch orders')

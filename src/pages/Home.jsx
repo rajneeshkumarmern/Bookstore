@@ -35,7 +35,7 @@ export default function Home({ searchQuery }) {
   const fetchBooks = async () => {
     try {
       setLoading(true)
-      const response = await axios.get('http://localhost:5000/api/books')
+      const response = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/books`)
       setBooks(response.data)
     } catch (err) {
       setError('Failed to fetch books')
@@ -52,7 +52,7 @@ export default function Home({ searchQuery }) {
   const handleAddBook = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:5000/api/books', {
+      await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/books`, {
         ...newBook,
         price: Number(newBook.price)
       })
