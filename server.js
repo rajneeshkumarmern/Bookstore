@@ -14,10 +14,12 @@ app.use(express.json())
 
 const bookRoutes = require('./routes/bookRoutes')
 const authRoutes = require('./routes/authRoutes')
+const userRoutes = require('./routes/userRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 const paymentRoutes = require('./routes/paymentRoutes')
 app.use('/api/books', bookRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/payment', paymentRoutes)
 

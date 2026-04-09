@@ -22,9 +22,10 @@ router.post('/register', async (req, res) => {
       name,
       email,
       password,
+      role: 'user',
     })
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
       expiresIn: '30d',
     })
 
@@ -32,6 +33,7 @@ router.post('/register', async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      role: user.role,
       token,
     })
   } catch (error) {
@@ -49,7 +51,7 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ email })
 
     if (user && (await user.matchPassword(password))) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
         expiresIn: '30d',
       })
 
@@ -57,6 +59,7 @@ router.post('/login', async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
         token,
       })
     } else {

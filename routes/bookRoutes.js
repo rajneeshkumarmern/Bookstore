@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Book = require("../models/Book");
+const { protect, admin } = require("../middleware/auth");
 
 // ✅ GET all books
 router.get("/", async (req, res) => {
@@ -26,7 +27,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // ✅ POST new book
-router.post("/", async (req, res) => {
+router.post("/", protect, admin, async (req, res) => {
   try {
     const { title, author, price, image, description, category } = req.body;
 
