@@ -21,7 +21,7 @@ export default function BookDetails() {
   const [book, setBook] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const { addToCart } = useCart()
+  const { addItem } = useCart()
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -113,12 +113,12 @@ export default function BookDetails() {
 
               <div className="flex flex-col gap-4 sm:flex-row">
                 <button
-                  onClick={() => addToCart(book)}
+                  onClick={() => addItem(book)}
                   className="flex-1 inline-flex items-center justify-center rounded-full bg-gradient-to-b from-amber-300 to-amber-500 px-6 py-3 text-sm font-semibold text-slate-950 shadow-glass-lg outline-none ring-amber-400/40 transition-all duration-200 hover:from-amber-200 hover:to-amber-400 hover:shadow-glow focus-visible:ring-2 active:translate-y-px"
                 >
                   Add to Cart
                 </button>
-                <button className="flex-1 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/[0.05] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:border-white/20 hover:bg-white/[0.12] hover:shadow-lg active:scale-95">
+                <button className="flex-1 inline-flex items-center justify-center rounded-full border border-white/[0.06] bg-white/[0.05] px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:border-white/15 hover:bg-white/[0.1] hover:text-white hover:shadow-lg active:scale-95">
                   Add to Wishlist
                 </button>
               </div>

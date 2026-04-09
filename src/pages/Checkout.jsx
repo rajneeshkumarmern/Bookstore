@@ -11,7 +11,7 @@ import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
 
-const stripePromise = loadStripe('pk_test_your_stripe_publishable_key_here')
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY || 'pk_test_your_stripe_publishable_key_here')
 
 function CheckoutForm() {
   const stripe = useStripe()

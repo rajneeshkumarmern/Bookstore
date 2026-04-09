@@ -8,7 +8,7 @@ export default function Navbar({ setSearchQuery }) {
   const searchId = useId()
   const { cartCount } = useCart()
   const { wishlistCount } = useWishlist()
-  const { user, logout } = useAuth()
+  const { user, isAdmin, logout } = useAuth()
   const [localSearch, setLocalSearch] = useState('')
 
   const handleSearchChange = (e) => {
@@ -83,6 +83,14 @@ export default function Navbar({ setSearchQuery }) {
         <nav className="flex items-center justify-between gap-2 sm:justify-end sm:gap-3">
           {user ? (
             <>
+              {isAdmin ? (
+                <Link
+                  to="/admin"
+                  className="inline-flex rounded-xl border border-transparent px-3 py-2 text-sm font-medium text-white/85 outline-none ring-amber-400/40 transition-all duration-200 hover:border-white/10 hover:bg-white/[0.06] hover:text-white focus-visible:ring-2"
+                >
+                  Admin
+                </Link>
+              ) : null}
               <Link
                 to="/profile"
                 className="inline-flex rounded-xl border border-transparent px-3 py-2 text-sm font-medium text-white/85 outline-none ring-amber-400/40 transition-all duration-200 hover:border-white/10 hover:bg-white/[0.06] hover:text-white focus-visible:ring-2"

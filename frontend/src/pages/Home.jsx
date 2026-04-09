@@ -43,9 +43,9 @@ export default function Home({ searchQuery }) {
     fetchBooks()
   }, [])
 
-  const filteredBooks = books.filter(book =>
+  const filteredBooks = books.filter((book) =>
     book.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    (selectedCategory === 'All' || book.category === selectedCategory)
+    (selectedCategory === 'All' || book.category === selectedCategory),
   )
 
   const sortedBooks = [...filteredBooks].sort((a, b) => {
@@ -66,8 +66,8 @@ export default function Home({ searchQuery }) {
   }, [searchQuery, selectedCategory])
 
   return (
-        <main className="flex flex-col">
-        <section className="relative overflow-hidden border-b border-white/[0.07]">
+    <main className="flex flex-col">
+      <section className="relative overflow-hidden border-b border-white/[0.07]">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_circle_at_18%_0%,rgba(251,191,36,0.14),transparent_58%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(800px_circle_at_85%_15%,rgba(56,189,248,0.1),transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(600px_circle_at_50%_120%,rgba(99,102,241,0.12),transparent_55%)]" />
@@ -197,4 +197,3 @@ export default function Home({ searchQuery }) {
     </main>
   )
 }
-

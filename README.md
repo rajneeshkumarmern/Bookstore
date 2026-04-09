@@ -25,15 +25,15 @@ A full-stack MERN bookstore application with user authentication, cart managemen
    npm install
    ```
 
-3. Set up environment variables in `.env`:
+3. Set up environment variables in `.env` or in Render:
    ```env
    PORT=5000
-   MONGO_URI=mongodb://localhost:27017/bookstore
-   JWT_SECRET=your_jwt_secret_here
+   MONGO_URI=<MongoDB Atlas connection string>
+   JWT_SECRET=<secure random string>
    STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key_here
    ```
 
-4. Start MongoDB locally or update MONGO_URI for cloud database
+4. Start MongoDB locally or update `MONGO_URI` for Atlas.
 
 5. Start the backend server:
    ```bash
@@ -42,20 +42,69 @@ A full-stack MERN bookstore application with user authentication, cart managemen
 
 ### Frontend Setup
 
-1. Install dependencies:
+1. Install dependencies from the `frontend` folder:
    ```bash
+   cd frontend
    npm install
    ```
 
-2. Update Stripe publishable key in `src/pages/Checkout.jsx`:
+2. Set the frontend API URL in `frontend/.env.example` or in your environment:
+   ```env
+   VITE_API_URL=https://<your-render-backend-url>
+   ```
+
+3. Update Stripe publishable key in `frontend/src/pages/Checkout.jsx`:
    ```javascript
    const stripePromise = loadStripe('pk_test_your_stripe_publishable_key_here')
    ```
 
-3. Start the development server:
+4. Start the development server:
    ```bash
+   cd frontend
    npm run dev
    ```
+
+### Deployment
+
+- Backend: Deploy the `backend` folder to Render as a Web Service.
+  - Build Command: `npm install`
+  - Start Command: `node server.js`
+  - Environment Variables:
+    - `MONGO_URI`
+    - `JWT_SECRET`
+    - `STRIPE_SECRET_KEY`
+
+- Frontend: Deploy the `frontend` folder to Vercel.
+  - Framework Preset: Vite
+  - Build Command: `npm run build`
+  - Output Directory: `dist`
+  - Environment Variable:
+    - `VITE_API_URL=https://<your-render-backend-url>`
+
+- Use the deployed backend URL in Vercel so the frontend connects to your Render API.
+
+## Automatic Deployment (GitHub Actions)
+
+This repository includes a GitHub Actions workflow at `.github/workflows/deploy.yml`.
+
+On push to `main`, the workflow will:
+
+- Trigger a backend deploy on Render via the Render API
+- Deploy the frontend to Vercel using the Vercel CLI
+
+Required GitHub secrets:
+
+- `RENDER_API_KEY`
+- `RENDER_SERVICE_ID`
+- `VERCEL_TOKEN`
+- `VITE_API_URL`
+
+Optional Vercel secrets if you want explicit project targeting:
+
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+> Make sure the backend service is configured on Render and the frontend project is configured on Vercel before using the workflow.
 
 ## Stripe Setup
 
@@ -81,6 +130,12 @@ Use these test card details for payment testing:
 - Expiry: Any future date (MM/YY)
 - CVC: Any 3 digits
 - Name: Any name
+
+## Deployment Notes
+
+- The backend already enables CORS and listens on `process.env.PORT`.
+- The frontend uses `VITE_API_URL` via `src/services/api.js` and falls back to `http://localhost:5000` for local development.
+- `vercel.json` is included to support React Router client-side routing.
 
 ## API Endpoints
 
