@@ -1,9 +1,7 @@
 import axios from 'axios'
-
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+import { API_URL } from '../config'
 
 export const apiClient = axios.create({
-  baseURL: BASE_URL,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -27,7 +25,7 @@ const handleError = (error) => {
 export const authService = {
   login: async (email, password) => {
     try {
-      const response = await apiClient.post('/api/auth/login', { email, password })
+      const response = await apiClient.post(`${API_URL}/api/auth/login`, { email, password })
       return response.data
     } catch (error) {
       handleError(error)
@@ -36,7 +34,7 @@ export const authService = {
 
   register: async (name, email, password) => {
     try {
-      const response = await apiClient.post('/api/auth/register', {
+      const response = await apiClient.post(`${API_URL}/api/auth/register`, {
         name,
         email,
         password,
@@ -49,7 +47,7 @@ export const authService = {
 
   getProfile: async () => {
     try {
-      const response = await apiClient.get('/api/auth/profile')
+      const response = await apiClient.get(`${API_URL}/api/auth/profile`)
       return response.data
     } catch (error) {
       handleError(error)
@@ -60,7 +58,7 @@ export const authService = {
 export const bookService = {
   getBooks: async () => {
     try {
-      const response = await apiClient.get('/api/books')
+      const response = await apiClient.get(`${API_URL}/api/books`)
       return response.data
     } catch (error) {
       handleError(error)
@@ -69,7 +67,7 @@ export const bookService = {
 
   getBookById: async (id) => {
     try {
-      const response = await apiClient.get(`/api/books/${id}`)
+      const response = await apiClient.get(`${API_URL}/api/books/${id}`)
       return response.data
     } catch (error) {
       handleError(error)
@@ -78,7 +76,7 @@ export const bookService = {
 
   createBook: async (bookData) => {
     try {
-      const response = await apiClient.post('/api/books', bookData)
+      const response = await apiClient.post(`${API_URL}/api/books`, bookData)
       return response.data
     } catch (error) {
       handleError(error)
@@ -89,7 +87,7 @@ export const bookService = {
 export const orderService = {
   getOrdersByUser: async (userId) => {
     try {
-      const response = await apiClient.get(`/api/orders/user/${userId}`)
+      const response = await apiClient.get(`${API_URL}/api/orders/user/${userId}`)
       return response.data
     } catch (error) {
       handleError(error)
@@ -100,7 +98,7 @@ export const orderService = {
 export const userService = {
   getAllUsers: async () => {
     try {
-      const response = await apiClient.get('/api/users')
+      const response = await apiClient.get(`${API_URL}/api/users`)
       return response.data
     } catch (error) {
       handleError(error)
@@ -109,7 +107,7 @@ export const userService = {
 
   updateUserRole: async (userId, role) => {
     try {
-      const response = await apiClient.put(`/api/users/${userId}/role`, { role })
+      const response = await apiClient.put(`${API_URL}/api/users/${userId}/role`, { role })
       return response.data
     } catch (error) {
       handleError(error)
@@ -120,7 +118,7 @@ export const userService = {
 export const paymentService = {
   createPaymentIntent: async (amount) => {
     try {
-      const response = await apiClient.post('/api/payment/create-intent', {
+      const response = await apiClient.post(`${API_URL}/api/payment/create-intent`, {
         amount,
       })
       return response.data
@@ -131,7 +129,7 @@ export const paymentService = {
 
   confirmPayment: async (payload) => {
     try {
-      const response = await apiClient.post('/api/payment/confirm', payload)
+      const response = await apiClient.post(`${API_URL}/api/payment/confirm`, payload)
       return response.data
     } catch (error) {
       handleError(error)

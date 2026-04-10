@@ -134,7 +134,7 @@ Use these test card details for payment testing:
 ## Deployment Notes
 
 - The backend already enables CORS and listens on `process.env.PORT`.
-- The frontend uses `VITE_API_URL` via `src/services/api.js` and falls back to `http://localhost:5000` for local development.
+- The frontend uses `VITE_API_URL` via `src/services/api.js` and falls back to `https://bookstore-backend-xxxx.onrender.com` for local development.
 - `vercel.json` is included to support React Router client-side routing.
 
 ## API Endpoints
