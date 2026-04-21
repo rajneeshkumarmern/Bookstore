@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Book = require("../models/Book");
-const { protect, admin } = require("../middleware/auth");
 
-// ✅ GET all books
+// GET all books
 router.get("/", async (req, res) => {
   try {
     const books = await Book.find();
@@ -13,7 +12,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ✅ GET single book by _id
+// GET single book
 router.get("/:id", async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
@@ -26,7 +25,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// ✅ POST new book
+// POST book (NO AUTH)
 router.post("/", async (req, res) => {
   try {
     const { title, author, price, image, description, category } = req.body;
@@ -41,7 +40,6 @@ router.post("/", async (req, res) => {
     });
 
     const savedBook = await newBook.save();
-
     res.status(201).json(savedBook);
   } catch (error) {
     res.status(500).json({ message: error.message });
