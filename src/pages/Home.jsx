@@ -170,7 +170,11 @@ export default function Home({ searchQuery }) {
                         title={book.title}
                         author={book.author}
                         price={book.price}
-                        image={book.image}
+                        image={
+    book.image
+      ? `https://bookstore-nu.vercel.app${book.image}`
+      : "https://via.placeholder.com/300x400?text=No+Image"
+  }
                       />
                     </Link>
                   </div>
