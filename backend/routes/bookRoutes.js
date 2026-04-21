@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Book = require("../models/Book");
 
-// GET all books
+// ✅ GET all books
 router.get("/", async (req, res) => {
   try {
     const books = await Book.find();
@@ -12,22 +12,26 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET single book
+// ✅ GET single book
 router.get("/:id", async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
+
     if (!book) {
       return res.status(404).json({ message: "Book not found" });
     }
+
     res.status(200).json(book);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-// POST book (NO AUTH)
+// ✅ POST book (NO AUTH — IMPORTANT)
 router.post("/", async (req, res) => {
   try {
+    console.log("BOOK POST HIT"); // debug
+
     const { title, author, price, image, description, category } = req.body;
 
     const newBook = new Book({
@@ -40,6 +44,7 @@ router.post("/", async (req, res) => {
     });
 
     const savedBook = await newBook.save();
+
     res.status(201).json(savedBook);
   } catch (error) {
     res.status(500).json({ message: error.message });
