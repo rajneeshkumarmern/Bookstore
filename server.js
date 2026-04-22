@@ -7,10 +7,14 @@ dotenv.config()
 
 connectDB()
 
+
 const app = express()
 
 app.use(cors({
-  origin: "https://bookstore-nu.vercel.app",
+  origin: [
+    "https://bookstore-nu.vercel.app",
+    "https://bookstore-frontend-p6ys.vercel.app"
+  ],
   credentials: true
 }))
 
